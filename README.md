@@ -1,1 +1,1 @@
-# Navigation for Multiple Mobile Robots
+# Multi-agent scenario with decentralized planning
