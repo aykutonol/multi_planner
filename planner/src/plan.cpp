@@ -15,22 +15,32 @@ int main(int argc, char **argv)
     start.pose.position.y = 0;
     goal.pose.position.x = 2;
     goal.pose.position.y = 1;
-    /// Build the graph
-    int nn = 10;     // number of nodes
-    int ne = 10;     // number of edges
-    int c = 10;      // cost value
+    /// Initialize dijkstra object for the grid
+    int n  = 11;        // size of the grid
+    int nn = n*n;       // number of nodes
+    int c  = 10;        // cost value
     Dijkstra dijkstra(nn);
-
-    for( int i=0; i<nn-1; i++ )
+    /// Build the graph
+    int count = 0;
+    for( int i=0; i<n; i++ )
     {
-        dijkstra.addEdge(i, i+1, c);
+        for( int j=0; j<n-1; j++ )
+        {
+            // add an edge between columns on the same row
+            dijkstra.addEdge(i*n+j, i*n+j+1,   c);
+            // add and edge between rows on the same column
+            dijkstra.addEdge(j*n+i, (j+1)*n+i, c);
+            std::cout << "\nEdge " << count << ": " << i*n+j << " <-> " << i*n+j+1;
+            std::cout << "\nEdge " << count+1 << ": " << j*n+i << " <-> " << (j+1)*n+i;
+            count = count+2;
+        }
     }
-    dijkstra.addEdge(5, 2, 1);
+    std::cout << "\n\n\nShortest path:\n";
 
-    std::vector<int> path =  dijkstra.shortestPath(5, 2);
-    dijkstra.printPath(path, 2);
+    std::vector<int> path =  dijkstra.shortestPath(120, 0);
+    dijkstra.printPath(path, 0);
 
-    std::cout << "\nPath found\n\n";
+
 
     return 0;
 }

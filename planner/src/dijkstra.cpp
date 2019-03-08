@@ -18,7 +18,9 @@ void Dijkstra::addEdge(int n1, int n2, int c)
 void Dijkstra::printPath(std::vector<int> path, int j)
 {
     if (path[j] == - 1)
+    {
         return;
+    }
     printPath(path, path[j]);
     printf("%d ", j);
 }
