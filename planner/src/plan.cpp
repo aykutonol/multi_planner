@@ -30,5 +30,7 @@ int main(int argc, char **argv)
     std::vector<int> path =  dijkstra.shortestPath(5, 2);
     dijkstra.printPath(path, 2);
 
+    std::cout << "\nPath found\n\n";
+
     return 0;
 }
