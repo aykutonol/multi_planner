@@ -3,15 +3,6 @@
 
 #include "dijkstra.h"
 
-void printPath(std::vector<int> parent, int j)
-{
-    // Base Case : If j is source
-    if (parent[j] == - 1)
-        return;
-    printPath(parent, parent[j]);
-    printf("%d ", j);
-}
-
 int main(int argc, char **argv)
 {
     /// Initialize ros
@@ -24,21 +15,20 @@ int main(int argc, char **argv)
     start.pose.position.y = 0;
     goal.pose.position.x = 2;
     goal.pose.position.y = 1;
-
-
     /// Build the graph
-    int nn = 5;     // number of nodes
-    int ne = 2;     // number of edges
-    int c = 10;     // cost value
+    int nn = 10;     // number of nodes
+    int ne = 10;     // number of edges
+    int c = 10;      // cost value
     Dijkstra dijkstra(nn);
 
-    dijkstra.addEdge(0, 1, c);
-    dijkstra.addEdge(1, 2, c);
-    dijkstra.addEdge(2, 3, c);
-    dijkstra.addEdge(3, 4, c);
+    for( int i=0; i<nn-1; i++ )
+    {
+        dijkstra.addEdge(i, i+1, c);
+    }
+    dijkstra.addEdge(5, 2, 1);
 
-    std::vector<int> path =  dijkstra.shortestPath(1, 4);
-    printPath(path, 4);
+    std::vector<int> path =  dijkstra.shortestPath(5, 2);
+    dijkstra.printPath(path, 2);
 
     return 0;
 }

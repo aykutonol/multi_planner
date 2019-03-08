@@ -1,17 +1,29 @@
 #include "dijkstra.h"
 
+/// Constructor: initializes the graph given the number of nodes
 Dijkstra::Dijkstra(int nn_in)
 {
     this->nn = nn_in;
     adj = new std::list< std::pair<int, int> >[nn_in];
 }
 
+/// addEdge: adds and edge between the nodes n1 and n2 with cost c
 void Dijkstra::addEdge(int n1, int n2, int c)
 {
     adj[n1].push_back(std::make_pair(n2, c));
     adj[n2].push_back(std::make_pair(n1, c));
 }
 
+/// printPath: prints the resulting path
+void Dijkstra::printPath(std::vector<int> path, int j)
+{
+    if (path[j] == - 1)
+        return;
+    printPath(path, path[j]);
+    printf("%d ", j);
+}
+
+/// shortestPath: returns the shortest path found by Dijkstra
 std::vector<int> Dijkstra::shortestPath(int nStart, int nFinal)
 {
     /// Set of nodes being processed
@@ -23,8 +35,7 @@ std::vector<int> Dijkstra::shortestPath(int nStart, int nFinal)
     /// Insert the start node to the set and set its distance to zero
     setn.insert(std::make_pair(0, nStart));
     dist[nStart] = 0;
-
-    /// Find all shortest distances
+    /// Find all shortest paths
     while( !setn.empty() )
     {
         /**
@@ -63,6 +74,11 @@ std::vector<int> Dijkstra::shortestPath(int nStart, int nFinal)
                  /// Update the path
                  path[n2] = n1;
              }
+         }
+         /// Stop the algorithm if the final node is reached
+         if( n1 == nFinal )
+         {
+             break;
          }
     }
     return path;
