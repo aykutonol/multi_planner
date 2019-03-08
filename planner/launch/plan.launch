@@ -1,0 +1,11 @@
+<launch>
+    <node> map server </node>
+
+    <node pkg="costmap_2d" type="costmap_2d_node" name="costmap_2d_node" clear_params="true">
+        <rosparam file="$../costmaps/costmap_params.yaml" />
+    </node>
+
+    <node pkg="global_planner" type="planner" name="planner" />
+
+    <node> rviz </node>
+</launch>

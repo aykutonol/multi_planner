@@ -6,7 +6,7 @@
 int main(int argc, char **argv)
 {
     /// initialize ros
-    ros::init(argc, argv, "publisher");
+    ros::init(argc, argv, "map_publisher");
     /// create node handlecd
     ros::NodeHandle nh;
     /// build the map message
