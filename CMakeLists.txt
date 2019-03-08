@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(planner)
+project(multi_planner)
 
 add_compile_options(-std=c++11)
 
@@ -22,11 +22,11 @@ add_library(${PROJECT_NAME}
 include_directories(${catkin_INCLUDE_DIRS})
 
 add_executable(map_publisher 		src/map_publisher.cpp)
-target_link_libraries(map_publisher ${catkin_LIBRARIES})
+target_link_libraries(map_publisher 	${catkin_LIBRARIES})
 
 add_executable(create_agent 		src/create_agent.cpp)
 target_link_libraries(create_agent 	${catkin_LIBRARIES})
 
-add_executable(plan 				src/plan.cpp)
-target_link_libraries(plan 			${catkin_LIBRARIES}
-			   						${PROJECT_NAME})
+add_executable(plan 			src/plan.cpp)
+target_link_libraries(plan 		${catkin_LIBRARIES}
+			   		${PROJECT_NAME})
