@@ -8,31 +8,31 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "agent_publisher");
     /// create node handle
     ros::NodeHandle nh;
-    /// build the feedback message
-    geometry_msgs::PoseStamped agent_pose_msg;
-    agent_pose_msg.header.frame_id = "agent1";
-    agent_pose_msg.pose.position.x = 0;
-    agent_pose_msg.pose.position.y = 0;
-    tf::Quaternion q;
-    q.setRPY(0,0,0);
-//    q.setRPY(0,0,theta);
-    /// Transform
-    tf::Transform transform;
-    transform.setOrigin(tf::Vector3(0,0,0));
-    transform.setRotation(q);
-
-
-    tf::TransformBroadcaster broadcaster;
-
-    ros::Rate loop_rate(10);
-
-    while( ros::ok() )
-    {
-        broadcaster.sendTransform(tf::StampedTransform(
-                        transform, ros::Time::now(), "world", "agent_feedback"));
-        ros::spinOnce();
-        loop_rate.sleep();
-    }
+//    /// build the feedback message
+//    geometry_msgs::PoseStamped agent_pose_msg;
+//    agent_pose_msg.header.frame_id = "agent1";
+//    agent_pose_msg.pose.position.x = 0;
+//    agent_pose_msg.pose.position.y = 0;
+//    tf::Quaternion q;
+//    q.setRPY(0,0,0);
+////    q.setRPY(0,0,theta);
+//    /// Transform
+//    tf::Transform transform;
+//    transform.setOrigin(tf::Vector3(0,0,0));
+//    transform.setRotation(q);
+//
+//
+//    tf::TransformBroadcaster broadcaster;
+//
+//    ros::Rate loop_rate(10);
+//
+//    while( ros::ok() )
+//    {
+//        broadcaster.sendTransform(tf::StampedTransform(
+//                        transform, ros::Time::now(), "world", "agent_feedback"));
+//        ros::spinOnce();
+//        loop_rate.sleep();
+//    }
 
 
 

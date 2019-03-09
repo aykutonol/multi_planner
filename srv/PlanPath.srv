@@ -1,0 +1,5 @@
+geometry_msgs/Pose2D goal_pose
+string serial_id
+---
+nav_msgs/Path path
+bool success
