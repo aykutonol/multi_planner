@@ -9,7 +9,10 @@ find_package(catkin REQUIRED COMPONENTS
 	geometry_msgs
 	nav_msgs
 	message_generation
+	roslaunch
 )
+
+roslaunch_add_file_check(launch)
 
 add_service_files(
 	FILES

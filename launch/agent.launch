@@ -1,0 +1,9 @@
+<launch>
+	<param name="startX" type="double" value="$(arg x_in)" />
+	<param name="startY" type="double" value="$(arg y_in)" />
+	<param name="startT" type="double" value="$(arg t_in)" />
+	<param name="serial" type="string" value="$(arg id)"   />
+	<node pkg="multi_planner" type="agent_node" name="agent1" output="screen"
+	      args="$(arg id) $(arg x_in) $(arg y_in) $(arg t_in)" >
+	</node>
+</launch>

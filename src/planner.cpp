@@ -6,15 +6,15 @@
 #include "multi_planner/PlanPath.h"
 #include "dijkstra.h"
 
+/// Listen to the agent_feedback and get the start pose on the grid
 int startCol, startRow;
-
 void feedbackCallback(const geometry_msgs::PoseStamped::ConstPtr& msg)
 {
     ROS_INFO("Agent feedback received");
     startCol = msg->pose.position.x;
     startRow = msg->pose.position.y;
 }
-
+/// Plan a path given a goal pose using Dijkstra's algorithm
 bool planPath( multi_planner::PlanPathRequest  &req,
                multi_planner::PlanPathResponse &resp )
 {
@@ -74,7 +74,7 @@ int main(int argc, char **argv)
     /// Create node handle
     ros::NodeHandle nh;
     /// Create service
-    ros::ServiceServer service = nh.advertiseService("plan_path", planPath);
+    ros::ServiceServer service = nh.advertiseService("get_plan", planPath);
     ROS_INFO("Ready to plan.");
     /// Create subscriber
     ros::Subscriber sub = nh.subscribe("agent_feedback", 5, feedbackCallback);
