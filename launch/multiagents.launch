@@ -15,6 +15,4 @@
 
 	<node pkg="multi_planner" type="planner_node" name="planner" />
 
-
-
 </launch>
