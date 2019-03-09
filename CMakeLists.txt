@@ -16,8 +16,15 @@ add_service_files(
 	PlanPath.srv
 )
 
+generate_messages(
+	DEPENDENCIES
+	std_msgs
+	geometry_msgs
+	nav_msgs
+)
+
 catkin_package(
-	CATKIN_DEPENDS geometry_msgs message_runtime
+	CATKIN_DEPENDS std_msgs geometry_msgs nav_msgs message_runtime
 )
 
 include_directories(

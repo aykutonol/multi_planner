@@ -2,11 +2,14 @@
 #include <geometry_msgs/Pose2D.h>
 #include <nav_msgs/Path.h>
 
+#include "multi_planner/PlanPath.h"
 #include "dijkstra.h"
 
-//bool planPath( multi_planner::PlanPathRequest &req,
-//               multi_planner::PlanPathResponse &resp )
-//{
+bool planPath( multi_planner::PlanPathRequest &req,
+               multi_planner::PlanPathResponse &resp )
+{
+    std::cout << "hoop hooppp\n";
+//    req.goal
 //    /// Parse start and goal
 //    geometry_msgs::Pose2D start, goal;
 //    start.pose.position.x = 0;
@@ -39,7 +42,10 @@
 //    std::vector<int> path =  dijkstra.shortestPath(120, 0);
 //    dijkstra.printPath(path, 0);
 //    std::cout <<"\n";
-//}
+//
+//
+//    resp.succ
+}
 
 int main(int argc, char **argv)
 {
@@ -47,8 +53,10 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "planner");
     /// Create node handle
     ros::NodeHandle nh;
-
-
+    /// Create service
+    ros::ServiceServer service = nh.advertiseService("plan_path", planPath);
+    ROS_INFO("Ready to plan.");
+    ros::spin();
 
     return 0;
 }
