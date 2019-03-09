@@ -48,12 +48,14 @@ bool planPath( multi_planner::PlanPathRequest  &req,
     /// Response
     nav_msgs::Path path;
     geometry_msgs::PoseStamped pathPose;
-    path.header.frame_id = req.serial_id;
+//    path.header.frame_id = frame_id;
     ROS_INFO("Serial ID: %s", req.serial_id.c_str());
     // Add the start pose
+    int frame_no = 0;
     pathPose.pose.position.x = startCol;
     pathPose.pose.position.y = startRow;
     path.poses.push_back(pathPose);
+    path.header.frame_id = "map";
     // Add the remaining path to the goal
     for( auto const& value: pathVec )
     {
@@ -61,6 +63,7 @@ bool planPath( multi_planner::PlanPathRequest  &req,
         int pathy = (value-pathx)/n;
         pathPose.pose.position.x = pathx;
         pathPose.pose.position.y = pathy;
+        pathPose.header.frame_id = "map";
         path.poses.push_back(pathPose);
     }
     resp.path = path;

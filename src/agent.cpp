@@ -4,9 +4,13 @@
 #include <multi_planner/UpdateGoal.h>
 #include "multi_planner/PlanPath.h"
 
+/// Create path planner service
 multi_planner::PlanPath planSrv;
+/// Flag for requesting plan per /update_goal
 bool goalSet = false;
+/// Namespace
 std::string ns;
+/// Set the goal for the planner upon /update_goal
 bool updateGoal( multi_planner::UpdateGoalRequest  &req,
                  multi_planner::UpdateGoalResponse &res )
 {
@@ -39,8 +43,9 @@ int main(int argc, char **argv)
     agent_pose_msg.x = startX;
     agent_pose_msg.y = startY;
     agent_pose_msg.theta = startT;
-    /// Create Publisher
+    /// Create Publishers
     ros::Publisher agent_feedback_pub = nh.advertise<geometry_msgs::Pose2D>("agent_feedback", 1000);
+    ros::Publisher path_pub = nh.advertise<nav_msgs::Path>("path", 1000);
     /// Create Client
     ros::ServiceClient client = nh.serviceClient<multi_planner::PlanPath>("/get_plan", false);
     if( client )
@@ -56,12 +61,19 @@ int main(int argc, char **argv)
     {
         /// Publish the agent pose
         agent_feedback_pub.publish(agent_pose_msg);
+        /// If the /update_goal service is called, call the planner
         if( goalSet )
         {
-            client.call(planSrv);
             ROS_INFO("Plan service called.");
+            client.call(planSrv);
+            if(  planSrv.response.success ) {
+                ROS_INFO("Planning for %s was successful", planSrv.request.serial_id.c_str()); }
+            else {
+                ROS_INFO("Planning for %s failed", planSrv.request.serial_id.c_str()); }
             goalSet = false;
         }
+        /// Publish the path
+        path_pub.publish(planSrv.response.path);
 
         ros::spinOnce();
         loop_rate.sleep();

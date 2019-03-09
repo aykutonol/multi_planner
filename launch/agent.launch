@@ -13,6 +13,8 @@
 		<remap from="/agent_2/agent/agent_feedback" to="/agent_feedback" />
 	</node>
 
+	<node pkg="multi_planner" type="planner_node" name="planner" />
+
 
 
 </launch>
