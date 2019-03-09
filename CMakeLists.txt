@@ -17,6 +17,7 @@ roslaunch_add_file_check(launch)
 add_service_files(
 	FILES
 	PlanPath.srv
+	UpdateGoal.srv
 )
 
 generate_messages(

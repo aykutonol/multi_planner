@@ -49,6 +49,7 @@ bool planPath( multi_planner::PlanPathRequest  &req,
     nav_msgs::Path path;
     geometry_msgs::PoseStamped pathPose;
     path.header.frame_id = req.serial_id;
+    ROS_INFO("Serial ID: %s", req.serial_id.c_str());
     // Add the start pose
     pathPose.pose.position.x = startCol;
     pathPose.pose.position.y = startRow;
@@ -64,6 +65,8 @@ bool planPath( multi_planner::PlanPathRequest  &req,
     }
     resp.path = path;
     resp.success = true;
+
+    return true;
 }
 
 int main(int argc, char **argv)
@@ -76,9 +79,13 @@ int main(int argc, char **argv)
     ros::ServiceServer service = nh.advertiseService("get_plan", planPath);
     ROS_INFO("Ready to plan.");
     /// Create subscriber
-    ros::Subscriber sub = nh.subscribe("/agent_feedback", 5, feedbackCallback);
-
-    ros::spin();
-
+    ros::Subscriber sub = nh.subscribe("/agent_feedback", 1000, feedbackCallback);
+    /// Loop
+    ros::Rate loop_rate(10);
+    while( ros::ok() )
+    {
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
     return 0;
 }
