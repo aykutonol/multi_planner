@@ -1,2 +1,0 @@
-rosrun planner map_publisher
-rosrun map_server map_saver -f free_map

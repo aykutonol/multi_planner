@@ -1,7 +1,9 @@
 <package format="2">
-  <name>planner</name>
+  <name>multi_planner</name>
   <version>1.2.4</version>
-  <description> This package provides path planning on a grid map. </description>
+  <description>
+    This package provides decentralized path planning for multiple agents on a grid map.
+  </description>
 
   <author>Aykut Onol</author>
   <maintainer email="aonol@ece.neu.edu">Aykut Onol</maintainer>

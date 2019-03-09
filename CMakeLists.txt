@@ -10,6 +10,8 @@ find_package(catkin REQUIRED COMPONENTS
 		tf
 )
 
+catkin_package()
+
 include_directories(
 		include
 )
@@ -21,12 +23,9 @@ add_library(${PROJECT_NAME}
 
 include_directories(${catkin_INCLUDE_DIRS})
 
-add_executable(map_publisher 		src/map_publisher.cpp)
-target_link_libraries(map_publisher 	${catkin_LIBRARIES})
+add_executable(agent 		src/agent.cpp)
+target_link_libraries(agent 	${catkin_LIBRARIES})
 
-add_executable(create_agent 		src/create_agent.cpp)
-target_link_libraries(create_agent 	${catkin_LIBRARIES})
-
-add_executable(plan 			src/plan.cpp)
-target_link_libraries(plan 		${catkin_LIBRARIES}
+add_executable(planner 			src/planner.cpp)
+target_link_libraries(planner 		${catkin_LIBRARIES}
 			   		${PROJECT_NAME})
