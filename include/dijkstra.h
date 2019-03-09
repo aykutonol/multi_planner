@@ -15,6 +15,8 @@ public:
     std::vector<int> shortestPath(int nStart, int nFinal);
     /// This function prints the resulting path
     void printPath(std::vector<int> path, int j);
+    /// This function returns the shortest path to the goal
+    void getPath(std::vector<int> pathNodes, int j, std::vector<int> &path);
 
 private:
     /// Number of nodes in the graph

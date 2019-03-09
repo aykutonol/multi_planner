@@ -25,6 +25,17 @@ void Dijkstra::printPath(std::vector<int> path, int j)
     printf("%d ", j);
 }
 
+/// getPath: returns the shortest path to the goal
+void Dijkstra::getPath(std::vector<int> pathNodes, int j, std::vector<int> &path)
+{
+    if (pathNodes[j] == - 1)
+    {
+        return;
+    }
+    printPath(pathNodes, pathNodes[j]);
+    path.push_back(j);
+}
+
 /// shortestPath: returns the shortest path found by Dijkstra
 std::vector<int> Dijkstra::shortestPath(int nStart, int nFinal)
 {

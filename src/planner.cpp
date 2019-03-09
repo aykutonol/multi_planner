@@ -6,51 +6,55 @@
 #include "multi_planner/PlanPath.h"
 #include "dijkstra.h"
 
-geometry_msgs::Pose2D startPose;
+int startCol, startRow;
 
 void feedbackCallback(const geometry_msgs::PoseStamped::ConstPtr& msg)
 {
     ROS_INFO("Agent feedback received");
-    startPose.x = msg->pose.position.x;
-    startPose.y = msg->pose.position.y;
+    startCol = msg->pose.position.x;
+    startRow = msg->pose.position.y;
 }
 
 bool planPath( multi_planner::PlanPathRequest  &req,
                multi_planner::PlanPathResponse &resp )
 {
     /// Parse request
-    int col = req.goal_pose.x;
-    int row = req.goal_pose.y;
-
-    ROS_INFO("Agent node: %d", col*11+row);
-
-//    /// Initialize dijkstra object for the grid
-//    int n  = 11;        // size of the grid
-//    int nn = n*n;       // number of nodes
-//    int c  = 10;        // cost value
-//    Dijkstra dijkstra(nn);
-//    /// Build the graph
-//    int count = 0;
-//    for( int i=0; i<n; i++ )
+    int goalCol = req.goal_pose.x;
+    int goalRow = req.goal_pose.y;
+    /// Initialize dijkstra object for the grid
+    int n  = 11;        // size of the grid
+    int nn = n*n;       // number of nodes
+    int c  = 10;        // cost value
+    Dijkstra dijkstra(nn);
+    /// Start and goal nodes
+    int nStart = startRow*n+startCol;
+    int nGoal  = goalRow*n+goalCol;
+    ROS_INFO("Agent start node: %d", nStart);
+    ROS_INFO("Agent goal node: %d",  nGoal);
+    /// Build the graph
+    for( int i=0; i<n; i++ )
+    {
+        for( int j=0; j<n-1; j++ )
+        {
+            // add an edge between columns on the same row
+            dijkstra.addEdge(i*n+j, i*n+j+1,   c);
+            // add and edge between rows on the same column
+            dijkstra.addEdge(j*n+i, (j+1)*n+i, c);
+        }
+    }
+    /// Find the shortest path
+    std::vector<int> pathNodes = dijkstra.shortestPath(nStart, nGoal);
+    std::vector<int> pathVec;
+    dijkstra.getPath(pathNodes, nGoal, pathVec);
+    /// Response
+//    nav_msgs::Path path;
+//    path.header.frame_id = req.serial_id;
+//    for( auto const& value: pathVec )
 //    {
-//        for( int j=0; j<n-1; j++ )
-//        {
-//            // add an edge between columns on the same row
-//            dijkstra.addEdge(i*n+j, i*n+j+1,   c);
-//            // add and edge between rows on the same column
-//            dijkstra.addEdge(j*n+i, (j+1)*n+i, c);
-//            std::cout << "\nEdge " << count << ": " << i*n+j << " <-> " << i*n+j+1;
-//            std::cout << "\nEdge " << count+1 << ": " << j*n+i << " <-> " << (j+1)*n+i;
-//            count = count+2;
-//        }
+//        int pathx = value
+//        path.poses.push_back()
 //    }
-//    /// Print the shortest path
-//    std::cout << "\n\n\nShortest path:\n";
-//    std::vector<int> path =  dijkstra.shortestPath(120, 0);
-//    dijkstra.printPath(path, 0);
-//    std::cout <<"\n";
-//    resp.
-//    resp.start
+
     resp.success = true;
 }
 
