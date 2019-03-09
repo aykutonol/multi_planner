@@ -1,5 +1,4 @@
 #include <ros/ros.h>
-#include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Pose2D.h>
 #include <nav_msgs/Path.h>
 
@@ -8,11 +7,11 @@
 
 /// Listen to the agent_feedback and get the start pose on the grid
 int startCol, startRow;
-void feedbackCallback(const geometry_msgs::PoseStamped::ConstPtr& msg)
+void feedbackCallback(const geometry_msgs::Pose2D::ConstPtr& msg)
 {
     ROS_INFO("Agent feedback received");
-    startCol = msg->pose.position.x;
-    startRow = msg->pose.position.y;
+    startCol = msg->x;
+    startRow = msg->y;
 }
 /// Plan a path given a goal pose using Dijkstra's algorithm
 bool planPath( multi_planner::PlanPathRequest  &req,
@@ -77,7 +76,7 @@ int main(int argc, char **argv)
     ros::ServiceServer service = nh.advertiseService("get_plan", planPath);
     ROS_INFO("Ready to plan.");
     /// Create subscriber
-    ros::Subscriber sub = nh.subscribe("agent_feedback", 5, feedbackCallback);
+    ros::Subscriber sub = nh.subscribe("/agent_feedback", 5, feedbackCallback);
 
     ros::spin();
 

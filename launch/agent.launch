@@ -1,9 +1,11 @@
 <launch>
-	<param name="startX" type="double" value="$(arg x_in)" />
-	<param name="startY" type="double" value="$(arg y_in)" />
-	<param name="startT" type="double" value="$(arg t_in)" />
-	<param name="serial" type="string" value="$(arg id)"   />
-	<node pkg="multi_planner" type="agent_node" name="agent1" output="screen"
-	      args="$(arg id) $(arg x_in) $(arg y_in) $(arg t_in)" >
+	<node ns="agent_1" pkg="multi_planner" type="agent_node" name="agent" output="screen" >
+		<param name="startX" type="double" value="0.0" />
+		<param name="startY" type="double" value="0.0" />
+		<param name="startT" type="double" value="0.0" />
+		<remap from="/agent_1/agent/agent_feedback" to="/agent_feedback" />
 	</node>
+
+
+
 </launch>
