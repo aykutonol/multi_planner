@@ -1,7 +1,5 @@
-geometry_msgs/Pose2D goal_pose
+geometry_msgs/PoseStamped goal_pose
 string serial_id
 ---
-#nav_msgs/Path path
-int32 startx
-int32 starty
+nav_msgs/Path path
 bool success
