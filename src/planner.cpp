@@ -1,22 +1,29 @@
 #include <ros/ros.h>
+#include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Pose2D.h>
 #include <nav_msgs/Path.h>
 
 #include "multi_planner/PlanPath.h"
 #include "dijkstra.h"
 
-bool planPath( multi_planner::PlanPathRequest &req,
+geometry_msgs::Pose2D startPose;
+
+void feedbackCallback(const geometry_msgs::PoseStamped::ConstPtr& msg)
+{
+    ROS_INFO("Agent feedback received");
+    startPose.x = msg->pose.position.x;
+    startPose.y = msg->pose.position.y;
+}
+
+bool planPath( multi_planner::PlanPathRequest  &req,
                multi_planner::PlanPathResponse &resp )
 {
-    std::cout << "hoop hooppp\n";
-//    req.goal
-//    /// Parse start and goal
-//    geometry_msgs::Pose2D start, goal;
-//    start.pose.position.x = 0;
-//    start.pose.position.y = 0;
-//    goal.pose.position.x = 2;
-//    goal.pose.position.y = 1;
-//
+    /// Parse request
+    int col = req.goal_pose.x;
+    int row = req.goal_pose.y;
+
+    ROS_INFO("Agent node: %d", col*11+row);
+
 //    /// Initialize dijkstra object for the grid
 //    int n  = 11;        // size of the grid
 //    int nn = n*n;       // number of nodes
@@ -42,9 +49,9 @@ bool planPath( multi_planner::PlanPathRequest &req,
 //    std::vector<int> path =  dijkstra.shortestPath(120, 0);
 //    dijkstra.printPath(path, 0);
 //    std::cout <<"\n";
-//
-//
-//    resp.succ
+//    resp.
+//    resp.start
+    resp.success = true;
 }
 
 int main(int argc, char **argv)
@@ -56,6 +63,9 @@ int main(int argc, char **argv)
     /// Create service
     ros::ServiceServer service = nh.advertiseService("plan_path", planPath);
     ROS_INFO("Ready to plan.");
+    /// Create subscriber
+    ros::Subscriber sub = nh.subscribe("agent_feedback", 5, feedbackCallback);
+
     ros::spin();
 
     return 0;
