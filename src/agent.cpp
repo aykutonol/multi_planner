@@ -13,7 +13,6 @@ bool updateGoal( multi_planner::UpdateGoalRequest  &req,
     planSrv.request.goal_pose.x = req.goal_pose.x;
     planSrv.request.goal_pose.y = req.goal_pose.y;
     planSrv.request.serial_id = ns;
-    ROS_INFO("updateGoal namespace: %s", ns.c_str());
     goalSet = true;
 
     res.success = true;
