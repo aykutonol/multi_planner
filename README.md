@@ -44,4 +44,28 @@ rosservice /update_goal:
 `rosservice call /agent/update_goal '[x,y,theta]'`
 
 ## Test
-A test with two agents can be performed by using the launch file 
+A test with two agents can be performed by using the launch file "launch/multiagents.lauch":  
+` roslaunch multi_planner multiagents.launch`
+
+This file initializes two agents: 'agent_1' at (0,0,0) and 'agent_2' at (5,5,0). It runs the planner node as well.
+
+The goals of [5,5,0] and [10,8,0] for the agents 1 and 2 can then be set by following rosservice calls:  
+```
+rosservice call /agent_1/agent/update_goal '[5,5,0]'
+rosservice call /agent_2/agent/update_goal '[10,8,0]'
+```
+
+The planned paths can be seen by echoing the path topics:
+```
+rostopic echo /agent_1/agent/path
+rostopic echo /agent_2/agent/path
+```
+
+They can be displayed on RViz as well:
+```
+rosrun rviz rviz -d extra/config.rviz
+```
+This command uses a predefined configuration file (extra/config.rviz) for better visualization. The resulting paths
+can be seen in the following figure.
+
+![](https://github.com/aykutonol/AYKUT_ONOL_INTERN/blob/master/extra/rviz_ss.png)
