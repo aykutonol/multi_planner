@@ -63,7 +63,7 @@ rostopic echo /agent_2/agent/path
 
 They can be displayed on RViz as well:
 ```
-rosrun rviz rviz -d extra/config.rviz
+rosrun rviz rviz -d src/AYKUT_ONOL_INTERN/extra/config.rviz
 ```
 This command uses a predefined configuration file (extra/config.rviz) for better visualization. The resulting paths
 can be seen in the following figure.
