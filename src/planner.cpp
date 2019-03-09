@@ -47,14 +47,23 @@ bool planPath( multi_planner::PlanPathRequest  &req,
     std::vector<int> pathVec;
     dijkstra.getPath(pathNodes, nGoal, pathVec);
     /// Response
-//    nav_msgs::Path path;
-//    path.header.frame_id = req.serial_id;
-//    for( auto const& value: pathVec )
-//    {
-//        int pathx = value
-//        path.poses.push_back()
-//    }
-
+    nav_msgs::Path path;
+    geometry_msgs::PoseStamped pathPose;
+    path.header.frame_id = req.serial_id;
+    // Add the start pose
+    pathPose.pose.position.x = startCol;
+    pathPose.pose.position.y = startRow;
+    path.poses.push_back(pathPose);
+    // Add the remaining path to the goal
+    for( auto const& value: pathVec )
+    {
+        int pathx = value % n;
+        int pathy = (value-pathx)/n;
+        pathPose.pose.position.x = pathx;
+        pathPose.pose.position.y = pathy;
+        path.poses.push_back(pathPose);
+    }
+    resp.path = path;
     resp.success = true;
 }
 

@@ -32,7 +32,7 @@ void Dijkstra::getPath(std::vector<int> pathNodes, int j, std::vector<int> &path
     {
         return;
     }
-    printPath(pathNodes, pathNodes[j]);
+    getPath(pathNodes, pathNodes[j], path);
     path.push_back(j);
 }
 
