@@ -11,8 +11,8 @@ int main(int argc, char **argv)
     /// build the feedback message
     geometry_msgs::PoseStamped agent_pose_msg;
     agent_pose_msg.header.frame_id = "agent1";
-    agent_pose_msg.pose.position.x = 0;
-    agent_pose_msg.pose.position.y = 0;
+    agent_pose_msg.pose.position.x = 3;
+    agent_pose_msg.pose.position.y = 4;
 
     /// publisher
     ros::Publisher agent_feedback_pub = nh.advertise<geometry_msgs::PoseStamped>("agent_feedback",5);
