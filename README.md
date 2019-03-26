@@ -1,7 +1,7 @@
 # Multi-agent scenario with decentralized planning
 This package is developed for decentralized path planning on a grid map for multiple agents.
 
-The libraries are implemented in C++ 11.
+The code is implemented in C++ 11.
 
 The only dependency of this framework is [ROS](http://www.ros.org/install/).
 
@@ -44,7 +44,8 @@ rosservice /update_goal:
 `rosservice call /agent/update_goal '[x,y,theta]'`
 
 ## Test
-A test with two agents can be performed by using the launch file "launch/multiagents.lauch":  
+A test with two agents can be performed by using 
+the launch file "launch/multiagents.lauch":  
 ` roslaunch multi_planner multiagents.launch`
 
 This file initializes two agents: 'agent_1' at (0,0,0) and 'agent_2' at (5,5,0). It runs the planner node as well.
@@ -63,7 +64,7 @@ rostopic echo /agent_2/agent/path
 
 They can be displayed on RViz as well:
 ```
-rosrun rviz rviz -d src/AYKUT_ONOL_INTERN/extra/config.rviz
+rosrun rviz rviz -d src/grid_planner/extra/config.rviz
 ```
 This command uses a predefined configuration file (extra/config.rviz) for better visualization. The resulting paths
 can be seen in the following figure.
