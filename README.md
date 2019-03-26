@@ -11,7 +11,7 @@ which is called /agent_feedback. The planner involves a service called /get_plan
 agent's pose and a goal pose request for the 11-by-11, 4-connected grid shown below. In this grid, we assume that the 
 columns from left to right represent the _x_ axis and the rows from bottom to top represent the _y_ axis. 
 
-![](https://github.com/aykutonol/AYKUT_ONOL_INTERN/blob/master/extra/grid.png)
+![](https://github.com/aykutonol/multi_planner/blob/master/extra/grid.png)
 
 The shortest path is found by the Dijkstra's algorithm that is implemented in dijkstra class.
 
@@ -22,7 +22,7 @@ A goal pose can be requested for an arbitrary agent by using /update_goal servic
     ```
     mkdir -p ~/cito_ws/src
     cd ~/cito_ws/src/
-    git clone https://github.com/aykutonol/AYKUT_ONOL_INTERN.git
+    git clone https://github.com/aykutonol/multi_planner.git
     ```  
 2. Build the package:
     ```
@@ -64,9 +64,9 @@ rostopic echo /agent_2/agent/path
 
 They can be displayed on RViz as well:
 ```
-rosrun rviz rviz -d src/grid_planner/extra/config.rviz
+rosrun rviz rviz -d src/multi_planner/extra/config.rviz
 ```
 This command uses a predefined configuration file (extra/config.rviz) for better visualization. The resulting paths
 can be seen in the following figure.
 
-![](https://github.com/aykutonol/AYKUT_ONOL_INTERN/blob/master/extra/rviz_ss.png)
+![](https://github.com/aykutonol/multi_planner/blob/master/extra/rviz_ss.png)
