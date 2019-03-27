@@ -66,7 +66,7 @@ They can be displayed on RViz as well:
 ```
 rosrun rviz rviz -d src/multi_planner/extra/config.rviz
 ```
-This command uses a predefined configuration file (extra/config.rviz) for better visualization. The resulting paths
+This command uses a predefined configuration file (extra/config.rviz) for easy visualization. The resulting paths
 can be seen in the following figure.
 
 ![](https://github.com/aykutonol/multi_planner/blob/master/extra/rviz_ss.png)
