@@ -20,13 +20,13 @@ A goal pose can be requested for an arbitrary agent by using /update_goal servic
 ## Installation
 1. Create a workspace and download the code:  
     ```
-    mkdir -p ~/cito_ws/src
-    cd ~/cito_ws/src/
+    mkdir -p ~/multi_planner_ws/src
+    cd ~/multi_planner_ws/src/
     git clone https://github.com/aykutonol/multi_planner.git
     ```  
 2. Build the package:
     ```
-    cd ~/cito_ws/
+    cd ~/multi_planner_ws/
     catkin build
     source devel/setup.bash
     ```
